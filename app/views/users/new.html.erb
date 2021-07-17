@@ -1,6 +1,8 @@
 <h1>Sign Up</h1>
 
 <%= form_for @user do |f| %>
+    <%= render partial: "layouts/errors", locals: {record: @user} %>
+
     <%= f.label :first_name %>
     <%= f.text_field :first_name %><br>
 
@@ -16,6 +18,6 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %><br>
 
-    <%= f.submit%>
+    <%= f.submit "Sign Up"%>
 
 <% end %>
