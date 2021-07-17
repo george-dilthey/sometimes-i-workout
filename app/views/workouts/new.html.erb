@@ -1,0 +1,26 @@
+<h1>New Workout</h1>
+
+<%= form_for [@user, @workout] do |f| %>
+    <%= render partial: "layouts/errors", locals: {record: @workout} %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+
+    <%= f.label :date %>
+    <%= f.date_field :date %><br>
+
+    <%= f.label :type %>
+    <%= f.text_field :type %><br>
+
+    <%= f.label :distance %>
+    <%= f.number_field :distance %><br>
+
+    <%= f.label :elapsed_time %>
+    <%= f.number_field :elapsed_time %><br>
+
+    <%= f.label :public %>
+    <%= f.check_box :public %><br>
+
+    <%= f.submit "Create Workout"%>
+
+<% end %>

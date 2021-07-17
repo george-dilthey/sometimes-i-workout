@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :workouts
-  resources :users
+  resources :workouts, only: [:new, :create, :show, :edit, :update, :delete]
+  
+  resources :users, only: [:new, :create] do
+    resources :workouts, only: [:index]
+  end
 
   root :to => "static#index"
 
