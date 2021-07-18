@@ -19,7 +19,7 @@ class WorkoutsController < ApplicationController
         if @workout.save
             redirect_to user_workouts_path(current_user)
         else
-            redirect_to user_workouts_path
+            render :new
         end
     end
 
