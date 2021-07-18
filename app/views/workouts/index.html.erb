@@ -1,3 +1,5 @@
 <h1>Your Workouts</h1>
 
+<%= link_to "Create Workout", new_workout_path%><br><br>
+
 <%= render partial: "workouts", collection: @workouts, as: "workout"%>

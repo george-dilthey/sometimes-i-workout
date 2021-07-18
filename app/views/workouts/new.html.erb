@@ -21,6 +21,16 @@
     <%= f.label :public %>
     <%= f.check_box :public %><br>
 
+    <h3>Segments:</h3><br>
+
+    <%= f.fields_for :segments, @workout.segments.build do |segments_fields| %>
+        <%= label_tag :name %><br>
+        <%= segments_fields.text_field :name %><br>
+
+        <%= label_tag :distance %><br>
+        <%= segments_fields.number_field :distance %><br>
+    <% end %><br>
+
     <%= f.submit "Create Workout"%>
 
 <% end %>

@@ -3,7 +3,9 @@ class Workout < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :segments
 
-  validates :name, :date, :type, :distance, :elapsed_time, :public, presence: true
+  validates :name, :date, :type, :distance, :elapsed_time, presence: true
+  
+  accepts_nested_attributes_for :segments
 
   def public?
     self.public
