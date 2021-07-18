@@ -5,4 +5,5 @@ class StaticController < ApplicationController
 
 
 
+
 end

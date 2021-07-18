@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   root :to => "static#index"
+  get "/auth/strava/callback", to: "sessions#strava_omniauth"
 
   get "/signup", to: "users#new", as: "signup"
   

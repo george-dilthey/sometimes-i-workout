@@ -3,3 +3,8 @@
 <% if @workout.user = current_user %>
     <%= link_to "Edit Workout", edit_workout_path(@workout)%>
 <%end%>
+
+<h2>Segments:</h2>
+
+<%= render partial: "segments", collection: @segments, as: "segment"%>
+

@@ -25,6 +25,7 @@ class WorkoutsController < ApplicationController
 
     def show
         @workout = Workout.find_by_id(params[:id])
+        @segments = @workout.segments
     end
 
     def edit

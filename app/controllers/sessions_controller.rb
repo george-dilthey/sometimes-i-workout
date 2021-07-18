@@ -19,4 +19,16 @@ class SessionsController < ApplicationController
         end
     end
 
+    def strava_omniauth
+        user_info = request.env["omniauth.auth"]
+        user = User.find_or_create_from_strava(user_info)
+        if user
+            session[:user_id] = user.id
+            redirect_to user_workouts_path
+        else
+            flash[:errors] = user.errors.full_messages
+            redirect_to login_path
+        end
+    end
+
 end
