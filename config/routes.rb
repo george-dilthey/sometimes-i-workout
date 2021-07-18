@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :segments
   resources :workouts, only: [:new, :create, :show, :edit, :update, :delete]
   
   resources :users, only: [:new, :create] do

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_17_192841) do
+ActiveRecord::Schema.define(version: 2021_07_18_005451) do
+
+  create_table "segments", force: :cascade do |t|
+    t.string "name"
+    t.float "distance"
+    t.string "polyline"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -31,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_07_17_192841) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "polyline"
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
