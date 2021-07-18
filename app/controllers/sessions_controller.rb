@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
         if user
             session[:user_id] = user.id
             StravaWorkouts.create_workouts(user_info)
-            
+            StravaWorkouts.create_segments(user_info)
             redirect_to user_workouts_path(user)
         else
             flash[:errors] = user.errors.full_messages

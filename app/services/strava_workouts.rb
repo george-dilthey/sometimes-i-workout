@@ -26,4 +26,26 @@ class StravaWorkouts
       end
     end
 
+    def self.create_segments(user_info)
+      client = Strava::Api::Client.new(
+        access_token: user_info["credentials"]["token"]
+      )
+      get_workouts(user_info).each do |a|
+        if a.trainer == false
+          activity = client.activity(a.id)
+          segment_efforts = activity.segment_efforts
+          segment_efforts.each do |se|
+            segment = se.segment
+            Segment.find_or_create_by(id: segment.id) do |s|
+              s.name = segment.name
+              s.distance = segment.distance
+              s.polyline = segment.map.polyline if segment.map
+            end
+            Workout.find_by_id(a.id).segments << Segment.find_by_id(segment.id)
+          end
+        end
+      end
+      
+    end
+
 end
