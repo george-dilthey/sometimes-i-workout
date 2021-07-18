@@ -1,7 +1,12 @@
-<div class="workouts">
-    Name: <%= workout.name%><br>
-    Date: <%= workout.date%><br>
-    Type: <%= workout.type%><br>
-    Distance: <%= workout.distance%><br>
-    <%= link_to "Go to Workout", workout_path(workout)%>
-</div><br><br>
+<div class="col">
+    <div class="card">
+        <img src="<%=workout.map%>" class="card-img-top">
+        <div class="card-body">
+
+            <h5 class="card-title"><%= workout.name %></h5>
+            <p class="card-text"><%= workout.date%></p>
+            <p class="card-text"><%=workout.type%> | <%= workout.distance%></p>
+            <%= link_to "Go to Workout", workout_path(workout), class: "btn btn-primary"%>
+        </div>
+    </div>
+</div>

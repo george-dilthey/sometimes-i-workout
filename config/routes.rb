@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :segments
   resources :workouts, only: [:new, :create, :show, :edit, :update, :delete]
   
   resources :users, only: [:new, :create] do
     resources :workouts, only: [:index]
+    resources :segments, only: [:index]
   end
 
   root :to => "static#index"
