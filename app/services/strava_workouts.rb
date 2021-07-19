@@ -40,13 +40,11 @@ class StravaWorkouts
             Segment.find_or_create_by(id: segment.id) do |s|
               s.name = segment.name
               s.distance = segment.distance
-              s.polyline = segment.map.summary_polyline if segment.map
             end
             Workout.find_by_id(a.id).segments << Segment.find_by_id(segment.id)
           end
         end
       end
-      
     end
 
 end

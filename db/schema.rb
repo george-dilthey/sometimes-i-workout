@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_18_195806) do
+ActiveRecord::Schema.define(version: 2021_07_19_224443) do
 
   create_table "segments", force: :cascade do |t|
     t.string "name"
     t.float "distance"
-    t.string "polyline"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
