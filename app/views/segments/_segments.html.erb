@@ -1,4 +1,10 @@
-<div class="segments">
-    Name: <%= segment.name%><br>
-    Distance: <%= segment.distance%><br>
-</div><br><br>
+<div class="col">
+    <div class="card">
+        <div class="card-body">
+            <div class="text-center">
+                <h5 class="card-title"><%= segment.name %></h5>
+                <p class="card-text"><%= display_distance(segment.distance)%> Miles</p>
+            </div>
+        </div>
+    </div>
+</div>

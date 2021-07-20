@@ -1,3 +1,8 @@
-<h1>Your Segments</h1>
-
-<%= render partial: "segments", collection: @segments, as: "segment"%>
+<div class = "text-center">
+    <h1>Your Segments</h1>
+</div><br><br>
+<div class = "container">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <%= render partial: "segments", collection: @segments, as: "segment"%>
+    </div> 
+</div>       

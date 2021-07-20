@@ -39,7 +39,7 @@ class StravaWorkouts
             byebug
             Segment.find_or_create_by(id: segment.id) do |s|
               s.name = segment.name
-              s.distance = segment.distance
+              s.distance = segment.distance_in_miles
             end
             Workout.find_by_id(a.id).segments << Segment.find_by_id(segment.id)
           end

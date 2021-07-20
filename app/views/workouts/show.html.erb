@@ -1,12 +1,20 @@
-<h1>Workout: <%=@workout.name%></h1>
+<div class = "text-center">
+    <h1>Workout: <%=@workout.name%></h1>
+    <% if @workout.user = current_user %>
+        <%= link_to "Edit Workout", edit_workout_path(@workout)%>
+    <%end%><br><br>
 
-<img src="<%=@workout.create_map%>" alt="">
+    <img src="<%=@workout.create_map%>" alt=""><br><br>
+    <h2>Segments:</h2>
+</div><br>
 
-<% if @workout.user = current_user %>
-    <%= link_to "Edit Workout", edit_workout_path(@workout)%>
-<%end%>
 
-<h2>Segments:</h2>
 
-<%= render partial: "/segments/segments", collection: @segments, as: "segment"%>
+
+
+<div class = "container">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <%= render partial: "/segments/segments", collection: @segments, as: "segment"%>
+    </div>
+</div>
 

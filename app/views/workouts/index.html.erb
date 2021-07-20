@@ -1,7 +1,9 @@
-<h1>Your Workouts</h1>
+<div class = "text-center">
+    <h1>Your Workouts</h1>
+    <%= link_to "Create Workout", new_workout_path%><br><br>
+</div>
 
 
-<%= link_to "Create Workout", new_workout_path%><br><br>
 <div class = "container">
     <div class="row row-cols-1 row-cols-md-3 g-4">
             <%= render partial: "workouts", collection: @workouts, as: "workout"%>
