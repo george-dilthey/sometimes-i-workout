@@ -7,7 +7,7 @@ class Workout < ApplicationRecord
   accepts_nested_attributes_for :segments
 
   before_create do
-    self.map = self.create_map
+    self.polyline ? self.map = self.create_map : self.map = 'https://source.unsplash.com/random/1000x400?bike'
   end
 
   def public?

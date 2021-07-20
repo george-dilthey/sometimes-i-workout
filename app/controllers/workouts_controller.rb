@@ -3,7 +3,7 @@ class WorkoutsController < ApplicationController
     before_action :require_login, only: [:new, :create]
     before_action :require_login_and_user, only: [:index, :edit, :update]
     before_action :require_login_if_not_public, only: [:show]
-    before_action :set_workout, only: [:show, :edit, :update]
+    before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
     def new
         @workout = Workout.new
@@ -24,18 +24,21 @@ class WorkoutsController < ApplicationController
     end
 
     def show
-        @workout = Workout.find_by_id(params[:id])
         @segments = @workout.segments
     end
 
     def edit
-        @workout = Workout.find_by_id(params[:id])
     end
 
     def update
-        @workout = Workout.find_by_id(params[:id])
         @workout.update(workout_params)
         redirect_to workout_path        
+    end
+
+    def destroy
+        @workout.destroy
+        @user = current_user
+        redirect_to user_workouts_path(@user)
     end
 
 

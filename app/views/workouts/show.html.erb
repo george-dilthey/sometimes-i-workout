@@ -1,7 +1,8 @@
 <div class = "text-center">
     <h1>Workout: <%=@workout.name%></h1>
     <% if @workout.user = current_user %>
-        <%= link_to "Edit Workout", edit_workout_path(@workout)%>
+        <%= link_to "Edit Workout", edit_workout_path(@workout)%> | <%= link_to "Delete Workout", @workout, method: :delete %>
+
     <%end%><br><br>
 
     <img src="<%=@workout.create_map%>" alt=""><br><br>
