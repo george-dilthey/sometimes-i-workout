@@ -21,11 +21,12 @@ class SessionsController < ApplicationController
 
     def strava_omniauth
         user_info = request.env["omniauth.auth"]
-        user = User.find_or_create_from_strava(user_info)
+        client = StravaApi.new(user_info)
+        user = client.user
         if user
             session[:user_id] = user.id
-            StravaWorkouts.create_workouts(user_info)
-            StravaWorkouts.create_segments(user_info)
+            client.create_workouts
+            client.create_segments
             redirect_to user_workouts_path(user)
         else
             flash[:errors] = user.errors.full_messages
