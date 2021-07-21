@@ -11,13 +11,14 @@ class WorkoutsController < ApplicationController
     end
 
     def index
+        @params = params.permit(:search).to_h
         if params[:user_id]
             require_login_and_user
             @user = User.find_by_id(params[:user_id])
-            @workouts = @user.workouts
-            
+            @workouts = @user.workouts.order_by_date.search(params[:search])
+            render :user_index 
         else 
-            @workouts = Workout.is_public
+            @workouts = Workout.is_public.order_by_date
         end
     end
 

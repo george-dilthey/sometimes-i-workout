@@ -1,6 +1,12 @@
 <div class = "text-center">
-    <h1>All Workouts</h1>
+    <h1>Your Workouts</h1>
+    <%= link_to "Create Workout", new_workout_path%><br><br>
 </div>
+
+<div class = "container">
+    <%= render partial: "search"%>
+</div>
+
 
 
 <div class = "container">
