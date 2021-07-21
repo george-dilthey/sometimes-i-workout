@@ -4,9 +4,11 @@ class Workout < ApplicationRecord
   has_and_belongs_to_many :segments
 
   validates :name, :date, :type, :distance, :elapsed_time, presence: true
+  validates :type, inclusion: {in: %w(Ride Run)}
   accepts_nested_attributes_for :segments
 
   scope :is_public, -> { where("public" == "true") }
+  scope
 
   before_create do
     self.polyline ? self.map = self.create_map : self.map = 'https://source.unsplash.com/random/1000x400?bike'

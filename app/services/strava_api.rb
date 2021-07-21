@@ -10,7 +10,7 @@ class StravaApi
     end
 
     def get_activities
-        activities = @client.athlete_activities
+        activities = @client.athlete_activities(per_page: 100)
     end
 
     def get_segment_efforts_from_activity(activity)
@@ -23,7 +23,7 @@ class StravaApi
 
     def create_workouts
       self.get_activities.each do |a|
-        if a.trainer == false
+        if a.segment_efforts != nil
           Workout.find_or_create_by(id: a.id) do |workout|
             workout.name = a.name
             workout.date = a.start_date
@@ -40,7 +40,7 @@ class StravaApi
 
     def create_segments
       self.get_activities.each do |a|     
-        if a.trainer == false
+        if a.segment_efforts != nil
           activity = @client.activity(a.id)
           get_segment_efforts_from_activity(activity).each do |se|
             segment = get_segment_from_effort(se)
