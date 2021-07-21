@@ -30,7 +30,7 @@ class StravaApi
             workout.distance = a.distance_in_miles
             workout.type = a.type
             workout.public = true
-            workout.user_id = @client.uid
+            workout.user_id = @user.id
             workout.elapsed_time = a.elapsed_time
             workout.polyline = a.map.summary_polyline
           end
@@ -53,5 +53,8 @@ class StravaApi
         end
       end
     end
+
+
+
 
 end

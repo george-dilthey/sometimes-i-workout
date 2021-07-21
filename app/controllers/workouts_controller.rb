@@ -1,7 +1,7 @@
 class WorkoutsController < ApplicationController
 
     before_action :require_login, only: [:new, :create]
-    before_action :require_login_and_user, only: [:index, :edit, :update]
+    before_action :require_login_and_user, only: [:edit, :update]
     before_action :require_login_if_not_public, only: [:show]
     before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
@@ -11,7 +11,14 @@ class WorkoutsController < ApplicationController
     end
 
     def index
-        @workouts = User.find_by_id(params[:user_id]).workouts
+        if params[:user_id]
+            require_login_and_user
+            @user = User.find_by_id(params[:user_id])
+            @workouts = @user.workouts
+            
+        else 
+            @workouts = Workout.is_public
+        end
     end
 
     def create

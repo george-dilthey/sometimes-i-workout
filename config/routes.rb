@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :workouts, only: [:new, :create, :show, :edit, :update, :destroy]
+  resources :workouts
   
   resources :users, only: [:new, :create] do
     resources :workouts, only: [:index]
