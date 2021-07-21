@@ -4,6 +4,7 @@
             <div class="text-center">
                 <h5 class="card-title"><%= segment.name %></h5>
                 <p class="card-text"><%= display_distance(segment.distance)%> Miles</p>
+                <%=link_to "View Segment", segment_path(segment)%>
             </div>
         </div>
     </div>

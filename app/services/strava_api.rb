@@ -2,22 +2,22 @@ class StravaApi
 
     attr_accessor :client, :user
 
-    def initialize(user_info)
+    def initialize(access_token)
         @client = Strava::Api::Client.new(
-            access_token: user_info["credentials"]["token"]
+            access_token: access_token
           )
-        @user = User.find_or_create_from_strava(user_info)
+        @user = User.find_or_create_from_strava(@client.athlete)
     end
 
     def get_activities
         activities = @client.athlete_activities
     end
 
-    def get_segment_efforts(activity)
+    def get_segment_efforts_from_activity(activity)
         segment_efforts = activity.segment_efforts
     end
 
-    def get_segment(segment_effort)
+    def get_segment_from_effort(segment_effort)
         segment = segment_effort.segment
     end 
 
@@ -30,7 +30,7 @@ class StravaApi
             workout.distance = a.distance_in_miles
             workout.type = a.type
             workout.public = true
-            workout.user_id = @user.id
+            workout.user_id = @client.athlete.id
             workout.elapsed_time = a.elapsed_time
             workout.polyline = a.map.summary_polyline
           end
@@ -39,11 +39,11 @@ class StravaApi
     end 
 
     def create_segments
-      self.get_activities.each do |a|
+      self.get_activities.each do |a|     
         if a.trainer == false
           activity = @client.activity(a.id)
-          get_segment_efforts(activity).each do |se|
-            segment = get_segment(se)
+          get_segment_efforts_from_activity(activity).each do |se|
+            segment = get_segment_from_effort(se)
             Segment.find_or_create_by(id: segment.id) do |s|
               s.name = segment.name
               s.distance = segment.distance_in_miles
@@ -54,7 +54,12 @@ class StravaApi
       end
     end
 
-
-
+    def update_segment_from_id(id)
+      strava_segment = @client.segment(id)
+      segment = Segment.find_by_id(id)
+      segment.polyline = strava_segment.map.polyline
+      segment.map = segment.create_map
+      segment.save
+    end
 
 end

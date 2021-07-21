@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :workouts
+  resources :segments
   
   resources :users, only: [:new, :create] do
     resources :workouts, only: [:index]
