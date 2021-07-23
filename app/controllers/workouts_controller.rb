@@ -2,7 +2,6 @@ class WorkoutsController < ApplicationController
 
     before_action :require_login, only: [:new, :create]
     before_action :require_login_and_user, only: [:edit, :update]
-    before_action :require_login_if_not_public, only: [:show]
     before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
     def new
@@ -32,6 +31,9 @@ class WorkoutsController < ApplicationController
     end
 
     def show
+        unless @workout.public
+            require_login_and_user
+        end
         @segments = @workout.segments
     end
 
@@ -61,25 +63,7 @@ class WorkoutsController < ApplicationController
     end
 
 
-    def require_login
-        unless logged_in?
-            flash[:notices] = ["Whoops! You must be logged in to view that content."]
-            redirect_to login_path
-        end
-    end
-
-    def require_login_if_not_public
-        @workout = Workout.find_by_id(params[:id])
-        unless @workout.public?
-            require_login_and_user
-        end
-    end
-
-    def require_login_and_user
-        unless logged_in? && current_user == User.find_by_id(params[:user_id])
-            require_login
-        end
-    end
+    
 
         
 end

@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
     def strava_omniauth
         user_info = request.env["omniauth.auth"]
         client = StravaApi.new(user_info["credentials"]["token"])
-        
         user = client.user
         if user
             session[:access_token] = user_info["credentials"]["token"]

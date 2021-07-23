@@ -4,6 +4,9 @@
         <div class="card-body">
 
             <h5 class="card-title"><%= workout.name %></h5>
+            <%if workout.user != current_user%>
+                <p class="card-text">User: <%=workout.user.first_name%> <%=workout.user.last_name%></p>
+            <%end%>
             <p class="card-text"><%= display_date(workout.date)%></p>
             <p class="card-text"><%=workout.type%> | <%= display_distance(workout.distance)%> Miles</p>
             <%= link_to "Go to Workout", workout_path(workout), class: "btn btn-primary"%>

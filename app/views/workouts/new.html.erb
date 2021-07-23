@@ -5,6 +5,7 @@
 <div class ='container'>
     <%= form_for [@user, @workout] do |f| %>
         <%= render partial: "layouts/errors", locals: {record: @workout} %>
+        
         <div class ="form-group">
             <%= f.label :name %>
             <%= f.text_field :name, class: "form-control" %><br>
@@ -21,7 +22,7 @@
         </div>
 
         <div class ="form-group">
-            <%= f.label :distance %>
+            <%= f.label :distance_in_miles %>
             <%= f.number_field :distance, class: "form-control" %><br>
         </div>
 
@@ -39,14 +40,19 @@
         <h3>Segments:</h3><br>
 
         <%= f.fields_for :segments, @workout.segments.build do |segments_fields| %>
+            
+            <div class ="form-group">
             <%= label_tag :name %><br>
-            <%= segments_fields.text_field :name %><br>
+            <%= segments_fields.text_field :name, class: "form-control" %><br>
+            </div>
 
-            <%= label_tag :distance %><br>
-            <%= segments_fields.number_field :distance %><br>
+            <div class = "form-group">
+            <%= label_tag :distance_in_miles %><br>
+            <%= segments_fields.number_field :distance, class: "form-control" %><br>
+            <div>
         <% end %><br>
 
-        <%= f.submit "Create Workout"%>
+        <%= f.submit "Create Workout", class: "btn btn-primary"%>
 
     <% end %>
 </div>

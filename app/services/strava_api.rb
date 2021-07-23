@@ -6,6 +6,7 @@ class StravaApi
         @client = Strava::Api::Client.new(
             access_token: access_token
           )
+        
         @user = User.find_or_create_from_strava(@client.athlete)
     end
 

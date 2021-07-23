@@ -1,5 +1,30 @@
 <div class="text-center">
     <h1>Welcome to Sometimes I Workout</h1>
     <h3>An app where you can explore your Strava workouts and segments.</h3>
+</div><br><br>
+
+<div class="container text-center">
+    <%if !logged_in?%>
+        <%= button_to "Login", new_user_path, class: "btn btn-primary"%>
+    <% else%>
+        <%= button_to "See Your Workouts", user_workouts_path(current_user), class: "btn btn-primary", method: :get%>
+    <%end%>
+</div><br><br>
+
+<hr>
+
+<div class="text-center">
+    <h2>Featured Workouts:</h2>
 </div>
 
+
+
+<div class = "container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+            <%= render partial: "workouts/workouts", collection: @workouts, as: "workout"%>
+    </div>
+</div><br><br>
+
+<div class= "container text-center">
+    <%= button_to "View All", workouts_path, class: "btn btn-dark", method: :get%>
+</div>

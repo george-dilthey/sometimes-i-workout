@@ -7,7 +7,7 @@ class Workout < ApplicationRecord
   validates :type, inclusion: {in: %w(Ride Run)}
   accepts_nested_attributes_for :segments
 
-  scope :is_public, -> { where("public" == "true") }
+  scope :is_public, -> { where(public: true) }
   scope :order_by_date, -> {order(date: :desc)}
   scope :search, -> (name){where("name LIKE ?", "%#{name}%")}
 
