@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_21_012833) do
+ActiveRecord::Schema.define(version: 2021_07_23_202926) do
 
   create_table "segments", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_07_21_012833) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "polyline"
     t.string "map"
+    t.boolean "starred"
   end
 
   create_table "segments_workouts", id: false, force: :cascade do |t|
