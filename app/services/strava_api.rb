@@ -1,30 +1,22 @@
 class StravaApi
 
-    attr_accessor :client, :user
+    attr_accessor :client, :user, :activities
 
     def initialize(access_token)
         @client = Strava::Api::Client.new(
             access_token: access_token
           )
-        
         @user = User.find_or_create_from_strava(@client.athlete)
     end
 
     def get_activities
-        activities = @client.athlete_activities(per_page: 100)
+      @activities = client.athlete_activities(per_page: 30).select {|a| a.trainer == false}.map { |a| client.activity(a.id)}
     end
 
-    def get_segment_efforts_from_activity(activity)
-        segment_efforts = activity.segment_efforts
-    end
-
-    def get_segment_from_effort(segment_effort)
-        segment = segment_effort.segment
-    end 
-
-    def create_workouts
-      self.get_activities.each do |a|
-        if a.segment_efforts != nil
+    def create_workouts_and_segments
+      self.get_activities
+      @activities.each do |a|
+        if a.segment_efforts != nil && a.trainer == false
           Workout.find_or_create_by(id: a.id) do |workout|
             workout.name = a.name
             workout.date = a.start_date
@@ -35,15 +27,22 @@ class StravaApi
             workout.elapsed_time = a.elapsed_time
             workout.polyline = a.map.summary_polyline
           end
+          a.segment_efforts.each do |se|
+            segment = se.segment
+            Segment.find_or_create_by(id: segment.id) do |s|
+              s.name = segment.name
+              s.distance = segment.distance_in_miles
+            end
+            Workout.find_by_id(a.id).segments << Segment.find_by_id(segment.id)
+          end
         end
       end
     end 
 
     def create_segments
-      self.get_activities.each do |a|     
-        if a.segment_efforts != nil
-          activity = @client.activity(a.id)
-          get_segment_efforts_from_activity(activity).each do |se|
+      @activities.each do |a|     
+        if a.segment_efforts != nil && a.trainer = false
+          a.segment_efforts.each do |se|
             segment = get_segment_from_effort(se)
             Segment.find_or_create_by(id: segment.id) do |s|
               s.name = segment.name

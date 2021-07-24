@@ -26,8 +26,8 @@ class SessionsController < ApplicationController
         if user
             session[:access_token] = user_info["credentials"]["token"]
             session[:user_id] = user.id
-            client.create_workouts
-            client.create_segments
+            client.create_workouts_and_segments
+            # client.create_segments
             redirect_to user_workouts_path(user)
         else
             flash[:errors] = user.errors.full_messages
