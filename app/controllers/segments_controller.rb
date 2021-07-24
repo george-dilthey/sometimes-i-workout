@@ -1,10 +1,6 @@
 class SegmentsController < ApplicationController
 
     def index
-        @segments = User.find_by_id(params[:user_id]).segments
-    end
-
-    def index
         @params = params.permit(:search).to_h
         if params[:user_id]
             require_login_and_user

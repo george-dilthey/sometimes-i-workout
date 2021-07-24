@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2021_07_23_202926) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "polyline"
     t.string "map"
-    t.boolean "starred"
   end
 
   create_table "segments_workouts", id: false, force: :cascade do |t|
@@ -50,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_202926) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "polyline"
     t.string "map"
+    t.integer "stars", default: 0
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 

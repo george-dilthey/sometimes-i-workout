@@ -1,7 +1,7 @@
 class WorkoutsController < ApplicationController
 
     before_action :require_login, only: [:new, :create]
-    before_action :require_login_and_user, only: [:edit, :update]
+    before_action :require_login_and_user, only: [:edit]
     before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
     def new
@@ -16,8 +16,9 @@ class WorkoutsController < ApplicationController
             @user = User.find_by_id(params[:user_id])
             @workouts = @user.workouts.order_by_date.search(params[:search])
             render :user_index 
-        else 
-            @workouts = Workout.is_public.order_by_date
+        else
+            @workouts = order_workout_by.is_public.search(params[:search])
+            puts params
         end
     end
 
@@ -41,8 +42,14 @@ class WorkoutsController < ApplicationController
     end
 
     def update
-        @workout.update(workout_params)
-        redirect_to workout_path        
+        if params[:stars]
+            @workout.add_star
+            @workout.save
+            redirect_to workouts_path
+        else
+            @workout.update(workout_params)
+            redirect_to workout_path 
+        end       
     end
 
     def destroy
@@ -51,19 +58,18 @@ class WorkoutsController < ApplicationController
         redirect_to user_workouts_path(@user)
     end
 
-
     private
 
     def workout_params
-        params.require(:workout).permit(:name, :date, :type, :distance, :elapsed_time, :public, :segments_attributes => [:name, :distance])
+        params.require(:workout).permit(:name, :date, :type, :distance, :elapsed_time, :public, :order_by, :segments_attributes => [:name, :distance])
     end
 
     def set_workout
         @workout = Workout.find_by_id(params[:id])
     end
 
-
-    
-
-        
+    def order_workout_by
+        params[:order_by] == "stars" ? Workout.order_by_stars : Workout.order_by_date
+    end
+      
 end

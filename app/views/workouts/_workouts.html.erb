@@ -9,7 +9,11 @@
             <%end%>
             <p class="card-text"><%= display_date(workout.date)%></p>
             <p class="card-text"><%=workout.type%> | <%= display_distance(workout.distance)%> Miles</p>
-            <%= link_to "Go to Workout", workout_path(workout), class: "btn btn-primary"%>
+            <%= link_to "Go to Workout", workout_path(workout), class: "btn btn-primary"%> <p><%=form_with url: workout_path(workout), method: :patch do |f| %>
+                    <%= f.hidden_field :stars, value: workout.stars%>
+                    <%= f.hidden_field :workout_id, value: workout.id%>
+                    <%=f.submit "⭐ #{workout.stars}" %>
+                  <%end%></p>
         </div>
     </div>
 </div>

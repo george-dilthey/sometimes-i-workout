@@ -1,0 +1,15 @@
+<%= form_tag path, method: :get do %>
+      <div class = "row">
+        <div class = col>
+        </div>
+        <div class = "col text-center">  
+          <%= select_tag :order_by, raw("
+            <option value=''>Sort By</option>
+            <option value='date'>Date</option>
+            <option value='stars'>Stars</option>"), class: "form-control" %>
+        </div>
+        <div class = "col">
+          <%= submit_tag "Sort", class: "btn btn-primary"%>
+        </div>
+      </div>
+  <%end%>

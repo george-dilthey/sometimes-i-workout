@@ -2,6 +2,13 @@
     <h1>All Workouts</h1>
 </div>
 
+<div class = "container">
+    <%= render partial: "/layouts/search", :locals => {:path => workouts_path}%>
+</div>
+
+<div class = "container">
+    <%= render partial: "/layouts/order_by", :locals => {:path => workouts_path}%>
+</div><br>
 
 <div class = "container">
     <div class="row row-cols-1 row-cols-md-3 g-4">

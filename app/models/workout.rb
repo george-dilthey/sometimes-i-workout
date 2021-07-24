@@ -9,6 +9,7 @@ class Workout < ApplicationRecord
 
   scope :is_public, -> { where(public: true) }
   scope :order_by_date, -> {order(date: :desc)}
+  scope :order_by_stars, -> {order(stars: :desc)}
   scope :search, -> (name){where("name LIKE ?", "%#{name}%")}
 
 
@@ -19,6 +20,10 @@ class Workout < ApplicationRecord
   def create_map
     polyline = URI.encode_www_form_component(self.polyline)
     url = "https://api.mapbox.com/styles/v1/gdilthey/ckef3rtzc0omw19nti733kki1/static/path-2+f44-1(#{polyline})/auto/1000x400?access_token=#{ENV["MAPBOX_ACCESS_TOKEN"]}"
+  end
+
+  def add_star
+    self.stars += 1
   end
 
 end
