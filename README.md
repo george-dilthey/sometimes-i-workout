@@ -11,7 +11,7 @@ STRAVA_CLIENT_ID={{CLIENT ID}}
 STRAVA_CLIENT_SECRET={{CLIENT SECRET}}
 ```
 
-This app also need to create a Mapbox developer account and get your public access token and add that to your .env file.
+This app also needs you to create a Mapbox developer account and get your public access token and add that to your .env file.
 
 ```
 MAPBOX_ACCESS_TOKEN={{ACCESS TOKEN}}
