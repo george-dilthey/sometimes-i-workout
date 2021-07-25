@@ -7,11 +7,14 @@
             <li class="nav-item"><%=link_to "My Workouts", user_workouts_path(current_user), class: "nav-link"%></li>
             <li class="nav-item"><%=link_to "All Workouts", workouts_path, class: "nav-link"%></li>
 
+
         <% else %>
             <li class="nav-item"><%=link_to "Log In", login_path, class: "nav-link"%></li>
             <li class="nav-item"><%=link_to "Sign Up", signup_path, class: "nav-link"%></li>
             <li class="nav-item"><%=link_to "Workouts", workouts_path, class: "nav-link"%></li>
         <%end%>
+        <li class="nav-item"><%=link_to "Segments", segments_path, class: "nav-link"%></li>
+
     </ul>
   </div>
 </nav>

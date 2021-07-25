@@ -10,7 +10,7 @@ class StravaApi
     end
 
     def get_activities
-      @activities = client.athlete_activities(per_page: 30).select {|a| a.trainer == false}.map { |a| client.activity(a.id)}
+      @activities = client.athlete_activities(per_page: 50).select {|a| a.trainer == false}.map { |a| client.activity(a.id)}
     end
 
     def create_workouts_and_segments
@@ -38,21 +38,6 @@ class StravaApi
         end
       end
     end 
-
-    def create_segments
-      @activities.each do |a|     
-        if a.segment_efforts != nil && a.trainer = false
-          a.segment_efforts.each do |se|
-            segment = get_segment_from_effort(se)
-            Segment.find_or_create_by(id: segment.id) do |s|
-              s.name = segment.name
-              s.distance = segment.distance_in_miles
-            end
-            Workout.find_by_id(a.id).segments << Segment.find_by_id(segment.id)
-          end
-        end
-      end
-    end
 
     def update_segment_from_id(id)
       strava_segment = @client.segment(id)
